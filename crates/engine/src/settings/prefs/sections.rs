@@ -173,7 +173,27 @@ page!(Import {
     unlabeled_alpha: String = "ask".into(),
     /// Default drag import as: `footage`, `comp`, `compLayerSizes`.
     drag_import_as: String = "footage".into(),
+    /// Automatic Proxies: when on, a video imported with its longest side at least
+    /// `auto_proxy_min_size` pixels long gets a proxy rendered in the background, which is
+    /// switched on for it when it is ready (off by default).
+    auto_proxies: bool = false,
+    /// Automatic Proxies: the longest side (px) a video needs for a proxy.
+    auto_proxy_min_size: u32 = 1920,
+    /// Automatic Proxies: the proxy's size, `half`, `third` or `quarter` of the video's.
+    auto_proxy_size: String = "half".into(),
 });
+
+impl Import {
+    /// [`Import::auto_proxy_size`] as a fraction of the video's size (a hand-edited settings
+    /// file may hold anything: half is the fallback).
+    pub fn auto_proxy_scale(&self) -> f64 {
+        match self.auto_proxy_size.trim() {
+            "third" => 1.0 / 3.0,
+            "quarter" => 0.25,
+            _ => 0.5,
+        }
+    }
+}
 
 page!(Export {
     default_output_folder: String = String::new(),

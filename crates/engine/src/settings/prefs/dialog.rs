@@ -237,6 +237,9 @@ pub fn pages() -> Vec<Page> {
                 s("import.stillSeconds", "Still Duration", Kind::Float(0.04, 86_400.0, "s"), true),
                 s("import.sequenceFps", "Sequence Footage", Kind::Float(1.0, 999.0, "frames per second"), true),
                 s("import.reportMissingFrames", "Report Missing Frames", B, true),
+                s("import.autoProxies", "Automatic Proxies", B, true),
+                s("import.autoProxyMinSize", "Automatic Proxies: Videos at Least", Kind::Int(16, 16_384, "px on the longest side"), true),
+                s("import.autoProxySize", "Automatic Proxies: Proxy Size", Kind::Choice(&[("Half", "half"), ("Third", "third"), ("Quarter", "quarter")]), true),
                 s(
                     "import.autoReloadFootage",
                     "Automatically Reload Footage",

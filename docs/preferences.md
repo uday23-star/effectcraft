@@ -152,6 +152,15 @@ Commands (CLI, MCP, control channel):
 - `type.fontNamesInEnglish`: off, fonts with a native-language family name show it
 - `import.reportMissingFrames`: gaps in an image sequence's numbering are reported on import
   (they show as colour-bar placeholders, as in After Effects; see [footage.md](footage.md))
+- `import.autoProxies`: Automatic Proxies (off by default). When on, a video imported with its
+  longest side at least `import.autoProxyMinSize` pixels (default 1920) gets a proxy made in the
+  background: a copy at `import.autoProxySize` (`half`, `third` or `quarter` of the video's size)
+  is rendered as ProRes Proxy next to the project file (the Default Output Folder, else the
+  project's folder, else `~/Movies` or the home folder), one video at a time and not while the
+  Render Queue is rendering, and switched on as the footage's proxy when it is ready. It's the same
+  proxy as File ▸ Create Proxy and Set Proxy make, so the Project panel's proxy switch turns it on
+  and off, and Render Settings ▸ Proxy Use (default Use No Proxies) decides whether a render uses
+  it. Turning the setting off stops the proxies still waiting; one already rendering finishes.
 - `import.autoReloadFootage`: Automatically Reload Footage, `off`, `nonSequence` (the default, as
   in After Effects) or `all` (image sequences too). Every two seconds while its window is in
   front (every ten seconds while another app has the front), and as soon as the window comes back
