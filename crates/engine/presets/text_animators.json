@@ -86,6 +86,23 @@
       ]
     },
     {
+      "id": "trackingOut",
+      "name": "Tracking Out",
+      "description": "Text spreads out to wide spacing while fading away.",
+      "animators": [
+        {
+          "name": "Tracking Out",
+          "properties": { "tracking": 0, "opacity": 100 },
+          "keys": {
+            "tracking": [[0, 0], [1.6, 40]],
+            "opacity": [[0.8, 100], [1.6, 0]]
+          },
+          "ease": true,
+          "selectors": []
+        }
+      ]
+    },
+    {
       "id": "scramble",
       "name": "Scramble",
       "description": "Letters cycle through random characters before settling, left to right.",

@@ -203,6 +203,7 @@ fn cached_text_presets_keep_the_catalog_and_application_independent() {
         ("fadeUpCharacters", "Fade Up Characters"),
         ("bounceInWords", "Bounce In Words"),
         ("trackingIn", "Tracking In"),
+        ("trackingOut", "Tracking Out"),
         ("scramble", "Scramble"),
         ("blurIn", "Blur In"),
         ("jitter", "Jitter"),
@@ -299,4 +300,19 @@ fn duplicate_copies_selected_text_selector_not_the_layer() {
     s.execute("edit.duplicate", json!({})).unwrap();
     assert_eq!(s.active_comp().unwrap().layers.len(), 1);
     assert_eq!(anims(&s).groups().count(), 2, "the animator is copied");
+}
+
+/// Tracking Out is Tracking In played backwards: the text starts tight and visible, then spreads out
+/// and fades to nothing, so it covers the most pixels at the start and none once the preset ends.
+#[test]
+fn tracking_out_spreads_the_text_and_fades_it_away() {
+    let (mut s, t) = session();
+    let cid = s.active_comp().unwrap().id;
+    s.execute("layer.applyTextPreset", json!({"layer": t, "preset": "trackingOut"})).unwrap();
+    let opts = effectcraft_render::RenderOpts { scale: 0.5, ..Default::default() };
+    let cov = |secs: f64| s.render(cid, effectcraft_time::Tick::from_seconds_f64(secs), opts).data.iter().filter(|p| p[3] > 0.05).count();
+    let (start, middle, end) = (cov(0.0), cov(1.2), cov(2.5));
+    assert!(start > 0, "visible at the start");
+    assert!(middle < start, "fading while it spreads: {start} -> {middle}");
+    assert_eq!(end, 0, "gone once the preset has finished");
 }

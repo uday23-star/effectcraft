@@ -1055,6 +1055,7 @@ Animation
     Fade Up Characters | layer.applyTextPreset {"preset":"fadeUpCharacters"}
     Bounce In Words | layer.applyTextPreset {"preset":"bounceInWords"}
     Tracking In | layer.applyTextPreset {"preset":"trackingIn"}
+    Tracking Out | layer.applyTextPreset {"preset":"trackingOut"}
     Scramble | layer.applyTextPreset {"preset":"scramble"}
     Blur In | layer.applyTextPreset {"preset":"blurIn"}
     Jitter | layer.applyTextPreset {"preset":"jitter"}
